@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
+import BookService from "../services/BookService";
 
 
 
@@ -17,10 +18,10 @@ const Display = (props) => {
             })
     }
     useEffect(()=> {
-        axios.get("http://localhost:8000/api/books")
+        BookService.getAllBooks()
             .then((res) => {
-                console.log(res.data);
-                setBooks(res.data);
+                console.log(res);
+                setBooks(res);
             })
             .catch((err) => {
                 console.log(err);
