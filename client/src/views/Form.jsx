@@ -71,7 +71,7 @@ const Form = (props) => {
             }))
             let errorMsg = ''
             if (newValue) {
-                if (newValue.length < 2) {
+                if (newValue.length < 5) {
                     errorMsg = "Front-End: A book's Author's name must be at least five characters long!"
                 } else if (newValue.length > 255) {
                     errorMsg = "Front-End: A book's Author's name must be less than 255 characters long"
@@ -89,7 +89,7 @@ const Form = (props) => {
             }))
             let errorMsg = ''
             if (newValue) {
-                if (newValue == 0) {
+                if (newValue < 1) {
                     errorMsg = "Front-End: A book must have some pages!"
             } 
             // else {

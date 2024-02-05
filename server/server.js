@@ -4,6 +4,7 @@ import cors from 'cors'; // Import CORS module to allow cross-origin resource sh
 import dotenv from 'dotenv'; // Import dotenv to read environment variables from .env files
 import dbConnect from './config/mongoose.config.js'; // Import function to connect to database
 import router from './routes/book.routes.js'; // Import router for handling API routes
+import extractValidationErrors from './util/ErrorExtractor.js';
 
 // Connect to the database
 dbConnect();
@@ -13,6 +14,26 @@ const app = express();
 
 // Parse JSON requests and use CORS to enable cross-origin requests
 app.use(express.json(), cors());
+
+
+// ERROR NORMALIZATION
+app.use((err, req, res, next) => {
+    err.name === "ValidationError"? err.statusCode = 400 : ""
+    console.log(err.errors)
+
+    // NORMALIZE THE ERROR
+    const normalizedError = {
+        statusCode: err.statusCode || 500,
+        message: err.message || "Something went wrong",
+        name: err.name || "Server Error",
+        // IMPORT extractValidationErrors.js from ErrorExtractor.js
+        validationErrors: extractValidationErrors(err)
+    }
+
+    // Return the normalized error
+    res.status(normalizedError.statusCode).json(normalizedError)
+})
+
 
 // Load environment variables from .env file
 dotenv.config();
