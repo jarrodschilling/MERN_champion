@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import axios from 'axios';
 import BookService from "../services/BookService";
 
 
 
 const Display = (props) => {
     const [books, setBooks] = useState([]);
+    
     const deleteHandler = (idForDeletion) => {
-        axios.delete(`http://localhost:8000/api/books/${idForDeletion}`)
+        BookService.deleteOneBook(idForDeletion)
             .then((res)=>{
-                console.log(res.data)
+                console.log(res)
                 const filteredList = books.filter((book) => {
                     return book._id !== idForDeletion
                 })

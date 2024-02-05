@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import axios from "axios";
+import BookService from "../services/BookService";
 
 const BookDetails = (props) => {
     const [book, setBook] = useState({});
@@ -9,18 +9,18 @@ const BookDetails = (props) => {
     const navigate = useNavigate()
 
     const deleteHandler = (idForDeletion) => {
-        axios.delete(`http://localhost:8000/api/books/${idForDeletion}`)
+        BookService.deleteOneBook(idForDeletion)
             .then((res)=>{
-                console.log(res.data)
+                console.log(res)
                 navigate("/")
             })
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/books/${id}`)
+        BookService.getOneBook(id)
         .then((res) => {
-            console.log(res.data);
-            setBook(res.data)
+            console.log(res);
+            setBook(res)
         })
         .catch((err) => {
             console.log(err);

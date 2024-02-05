@@ -12,8 +12,8 @@ function getAllBooks() {
         })
 }
 
-function updateOneBook(book) {
-    return http.put(`/books/${book._id}`, book)
+function updateOneBook(id, bookState) {
+    return http.put(`/books/${id}`, bookState)
         .then(res => res.data)
         .catch(err => {
             throw err;
@@ -28,10 +28,28 @@ function addOneBook(book) {
         })
 }
 
+function getOneBook(id) {
+    return http.get(`/books/${id}`)
+        .then(res => res.data)
+        .catch(err => {
+            throw err;
+        })
+}
+
+function deleteOneBook(id) {
+    return http.delete(`/books/${id}`)
+        .then(res => res.data)
+        .catch(err => {
+            throw err;
+        })
+}
+
 const BookService = {
     getAllBooks: getAllBooks,
     updateOneBook: updateOneBook,
-    addOneBook: addOneBook
+    addOneBook: addOneBook,
+    getOneBook: getOneBook,
+    deleteOneBook: deleteOneBook
 }
 
 export default BookService

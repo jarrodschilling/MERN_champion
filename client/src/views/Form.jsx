@@ -1,6 +1,5 @@
 import { useEffect, useState, useReducer } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import axios from 'axios';
 import BookService from "../services/BookService";
 
 // export const ACTIONS = {
