@@ -42,6 +42,7 @@ const Form = (props) => {
         bookAuthor: "Front-End: A book's author's name is required!",
         bookPages: "Front-End: A book must have some pages!"
     })
+
     const navigate = useNavigate()
 
     const handleChange = (e) => {
